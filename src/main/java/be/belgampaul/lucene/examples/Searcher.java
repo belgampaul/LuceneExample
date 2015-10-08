@@ -37,27 +37,11 @@ public class Searcher {
       builder2.add(amountFilter, BooleanClause.Occur.SHOULD);
       builder2.add(amountFilter2, BooleanClause.Occur.SHOULD);
 
-//      builder.add(builder2.build(), BooleanClause.Occur.MUST);
       BooleanQuery query = builder.build();
-      //      BooleanQuery booleanQuery = (BooleanQuery) builder;
-      //      booleanQuery.
       TopDocs results = indexSearcher.search(query, 1000);
       System.out.println("Number of hits: " + results.scoreDocs.length);
 
-
-      //      Field id = new LongField("id", 1L, LongField.TYPE_STORED);
-//      Field text = new TextField("text", "LockFactory implementations are singletons now and have no state. They only need to implement one method: makeLock(Directory dir, String name).", Field.Store.NO);
-      //      doc.add(id);
-      //      doc.add(text);
-//      Term id = new Term("id", "1");
-//      indexReader.deleteDocuments(id);
-      //      indexReader.updateDocument(id, doc);
-      //  indexReader.deleteAll();
-
-//      indexReader.commit();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (ParseException e) {
+    } catch (IOException | ParseException e) {
       e.printStackTrace();
     }
   }

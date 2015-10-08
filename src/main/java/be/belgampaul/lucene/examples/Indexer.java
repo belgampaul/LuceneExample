@@ -30,7 +30,7 @@ public class Indexer {
       this.text = text;
     }
 
-    public Document getDocument(){
+    public Document getDocument() {
       Document doc = new Document();
       ArrayList<Field> fields = new ArrayList<>();
       fields.add(new StringField("id", this.id, Field.Store.YES));
@@ -46,15 +46,12 @@ public class Indexer {
   public static void main(String[] args) {
     try (Analyzer analyzer = new EnglishAnalyzer();
          FSDirectory indexDir = NIOFSDirectory.open(Paths.get(Constants.luceneIndexLocation));
-         IndexWriter indexWriter = new IndexWriter(indexDir, new IndexWriterConfig(analyzer))
-    ) {
+         IndexWriter indexWriter = new IndexWriter(indexDir, new IndexWriterConfig(analyzer))) {
 
       String text = "state";
       ValueHolder valueHolder = new ValueHolder("4", 3000L, text);
       Term termId = new Term("id", valueHolder.id);
-//      indexWriter.deleteDocuments(id);
       indexWriter.updateDocument(termId, valueHolder.getDocument());
-//  indexWriter.deleteAll();
 
       indexWriter.commit();
     } catch (IOException e) {
